@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 
 
-export const generateMetadata = async ({ }: { params: { alias: string } }): Promise<Metadata> => {
+export const generateMetadata = async ({ params }: { params: { alias: string } }): Promise<Metadata> => {
   return {
     title: `Redirecting...`,
   };
