@@ -1,5 +1,4 @@
 // app/r/[alias]/page.tsx
-
 import { getDb } from "@/lib/db";
 import { notFound, redirect } from "next/navigation";
 import { Metadata } from "next";
@@ -21,6 +20,7 @@ export default async function RedirectAlias({ params }: { params: { alias: strin
   // If no link is found, trigger the 404 page
   if (!link) {
     notFound(); // Triggers the built-in 404 page
+    return; // Return early to prevent further code execution
   }
 
   // Redirect to the original URL stored in the database
