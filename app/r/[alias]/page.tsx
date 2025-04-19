@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { getDb } from "@/lib/db";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { Metadata } from "next";
-
 
 export const generateMetadata = async ({ params }: { params: { alias: string } }): Promise<Metadata> => {
   return {
@@ -15,10 +13,9 @@ export default async function RedirectAlias({ params }: { params: { alias: strin
   const link = await db.collection("urls").findOne({ alias: params.alias });
 
   if (!link) {
-    notFound();
+    notFound(); // Automatically triggers the 404 error page if alias is not found
   }
 
-  return (
-    <meta httpEquiv="refresh" content={`0; url=${link.url}`} />
-  );
+  // Perform the redirect to the original URL stored in the database
+  redirect(link.url);
 }
