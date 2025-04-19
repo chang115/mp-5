@@ -1,21 +1,23 @@
 import { getDb } from "@/lib/db";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
+import { Metadata } from "next";
 
-export const dynamic = 'force-dynamic';
 
-interface PageProps {
-  params: {
-    alias: string;
+export const generateMetadata = async ({ }: { params: { alias: string } }): Promise<Metadata> => {
+  return {
+    title: `Redirecting...`,
   };
-}
+};
 
-export default async function RedirectAlias({ params }: PageProps) {
+export default async function RedirectAlias({ params }: { params: { alias: string } }) {
   const db = await getDb();
   const link = await db.collection("urls").findOne({ alias: params.alias });
 
   if (!link) {
-    notFound(); // Shows 404 if alias is not found
+    notFound();
   }
 
-  redirect(link.url); // Redirect to the original URL
+  return (
+    <meta httpEquiv="refresh" content={`0; url=${link.url}`} />
+  );
 }
