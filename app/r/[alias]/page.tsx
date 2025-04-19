@@ -1,13 +1,7 @@
 import { getDb } from "@/lib/db";
-import { notFound, redirect } from "next/navigation";
+import { redirect, notFound } from "next/navigation";
 
-interface AliasPageProps {
-  params: {
-    alias: string;
-  };
-}
-
-export default async function RedirectAlias({ params }: AliasPageProps) {
+export default async function RedirectAlias({ params }: any) {
   const db = await getDb();
   const link = await db.collection("urls").findOne({ alias: params.alias });
 
