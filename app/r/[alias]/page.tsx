@@ -1,13 +1,5 @@
 import { getDb } from "@/lib/db";
-import { notFound } from "next/navigation";
-import { Metadata } from "next";
-
-// Optionally set metadata for each alias
-export const generateMetadata = async ({ params }: { params: { alias: string } }): Promise<Metadata> => {
-  return {
-    title: `Redirecting...`,
-  };
-};
+import { redirect, notFound } from "next/navigation";
 
 export default async function RedirectAlias({ params }: { params: { alias: string } }) {
   const db = await getDb();
@@ -17,7 +9,5 @@ export default async function RedirectAlias({ params }: { params: { alias: strin
     notFound();
   }
 
-  return (
-    <meta httpEquiv="refresh" content={`0; url=${link.url}`} />
-  );
+  redirect(link.url); // This will redirect properly
 }
