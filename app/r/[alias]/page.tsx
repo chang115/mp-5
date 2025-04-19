@@ -1,7 +1,13 @@
 import { getDb } from "@/lib/db";
-import { redirect, notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
-export default async function RedirectAlias({ params }: { params: { alias: string } }) {
+interface AliasPageProps {
+  params: {
+    alias: string;
+  };
+}
+
+export default async function RedirectAlias({ params }: AliasPageProps) {
   const db = await getDb();
   const link = await db.collection("urls").findOne({ alias: params.alias });
 
@@ -9,5 +15,5 @@ export default async function RedirectAlias({ params }: { params: { alias: strin
     notFound();
   }
 
-  redirect(link.url); // This will redirect properly
+  redirect(link.url);
 }
