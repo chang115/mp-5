@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { getDb } from "@/lib/db";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
