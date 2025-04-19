@@ -14,8 +14,8 @@ export default async function RedirectAlias({ params }: PageProps) {
   const link = await db.collection("urls").findOne({ alias: params.alias });
 
   if (!link) {
-    notFound(); // shows 404 page
+    notFound(); // Shows 404 if alias is not found
   }
 
-  redirect(link.url); // redirects to original URL
+  redirect(link.url); // Redirect to the original URL
 }
