@@ -1,21 +1,19 @@
 import { getDb } from "@/lib/db";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
-type Props = {
+interface Props {
   params: {
     alias: string;
   };
-};
+}
 
 export default async function RedirectAlias({ params }: Props) {
   const db = await getDb();
   const link = await db.collection("urls").findOne({ alias: params.alias });
 
   if (!link) {
-    notFound();
+    notFound(); 
   }
 
-  return (
-    <meta httpEquiv="refresh" content={`0; url=${link.url}`} />
-  );
+  redirect(link.url); 
 }
