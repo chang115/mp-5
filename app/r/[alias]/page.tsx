@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { getDb } from "@/lib/db";
 import { notFound, redirect } from "next/navigation";
 import { Metadata } from "next";
